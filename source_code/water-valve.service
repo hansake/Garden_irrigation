@@ -1,0 +1,14 @@
+[Unit]
+Description=Garden water valve service
+After=network.target
+StartLimitIntervalSec=0
+
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root  
+ExecStart=/usr/bin/python /usr/local/bin/water-valve.py
+
+[Install]
+WantedBy=multi-user.target
