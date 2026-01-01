@@ -7,5 +7,5 @@ The hardware schematics are created with KiCad version 9.0. The PCB layout creat
 is not really exactly as the actual hardware design as the connections are not etched on a PCB board but soldered
 with wires.
 
-The control software is written in Python and creates devices with MQTT and these devices are controlled
-from an MQTT interface in Home Assistant.
+The control software is written in Python and creates devices in Home Assistant using MQTT
+and these devices are controlled from an MQTT interface in Home Assistant.
