@@ -10,4 +10,4 @@ with wires.
 The control software is written in Python and creates devices with MQTT and these devices are controlled
 from an MQTT interface in Home Assistant.
 
-Photos of the raddware desingn will be added to this repository.
+Photos of the hardware desingn will be added to this repository.
