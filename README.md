@@ -9,3 +9,5 @@ with wires.
 
 The control software is written in Python and creates devices in Home Assistant using MQTT
 and these devices are controlled from an MQTT interface in Home Assistant.
+
+![Garden_irrigation](photos/Garden_water_cabinet.png?raw=true)
