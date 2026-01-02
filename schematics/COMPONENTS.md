@@ -4,3 +4,5 @@
 
 # Components Bill of Material
 * In Garden_irrigation.csv
+Note that some of the components are very old (found in my scrap box)
+and may not be available any longer, modern alternatives exists however.
