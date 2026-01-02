@@ -3,3 +3,4 @@
 * [Buy Water flow sensor 1/2&quot; 1-30l/min at the right price @ electrokit](https://www.electrokit.com/en/flodesmatare-1-30l/m-1/2)
 
 # Components Bill of Material
+* In Garden_irrigation.csv
