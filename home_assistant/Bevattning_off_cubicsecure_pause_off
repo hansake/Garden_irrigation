@@ -27,6 +27,6 @@ conditions:
 actions:
   - action: lksystems.pause_leak_detection
     data:
-      device_id: 0e8a36242ba12d2381fbb216a660884d
+      device_id: <device id>
       seconds: 0
 mode: single
