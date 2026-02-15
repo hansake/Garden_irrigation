@@ -43,12 +43,74 @@ pulsecounter3 = 0
 # Pulses per liter should be calibrated
 pulses_per_liter = 450
 
+# Create water meter sensor 1
+def create_meter_1(client):
+    mqttbuffer = "{\"name\":\"Garden water 1\",\
+      \"stat_t\":\"%s\",\
+      \"unique_id\":\"garden_water_1\",\
+      \"unit_of_meas\":\"L\",\
+      \"dev_cla\":\"water\",\
+      \"frc_upd\":true,\
+      \"val_tpl\":\"{{ value_json.water|default(0) }}\"}"\
+      % stateTopic1
+    if Debug > 0:
+        print(discoveryTopic1, ":", mqttbuffer)
+    if Debug != 2:
+        rc = client.publish(discoveryTopic1, mqttbuffer, qos = 0, retain = True)
+    if Debug > 2:
+        print (rc)
+
+# Create water meter sensor 2
+def create_meter_2(client):
+    mqttbuffer = "{\"name\":\"Garden water 2\",\
+      \"stat_t\":\"%s\",\
+      \"unique_id\":\"garden_water_2\",\
+      \"unit_of_meas\":\"L\",\
+      \"dev_cla\":\"water\",\
+      \"frc_upd\":true,\
+      \"val_tpl\":\"{{ value_json.water|default(0) }}\"}"\
+      % stateTopic2
+    if Debug > 0: 
+        print(discoveryTopic2, ":", mqttbuffer)
+    if Debug != 2: 
+        rc = client.publish(discoveryTopic2, mqttbuffer, qos = 0, retain = True)
+    if Debug > 2:
+        print (rc)
+
+# Create water meter sensor 3
+def create_meter_3(client):
+    mqttbuffer = "{\"name\":\"Garden water 3\",\
+      \"stat_t\":\"%s\",\
+      \"unique_id\":\"garden_water_3\",\
+      \"unit_of_meas\":\"L\",\
+      \"dev_cla\":\"water\",\
+      \"frc_upd\":true,\
+      \"val_tpl\":\"{{ value_json.water|default(0) }}\"}"\
+      % stateTopic3
+    if Debug > 0:
+        print(discoveryTopic3, ":", mqttbuffer)
+    if Debug != 2:
+        rc = client.publish(discoveryTopic3, mqttbuffer, qos = 0, retain = True)
+    if Debug > 2:
+        print (rc)
+
 # MQTT Connect / Disconnect
 def on_connect(client, userdata, flags, rc, properties):
-   print("Connected With Result Code ", rc)
+    print("Connected With Result Code ", rc)
+    # Create MQTT sensors
+
+    # Create water meter sensor 1
+    create_meter_1(client)
+    time.sleep(1)
+    # Create water meter sensor 2
+    create_meter_2(client)
+    time.sleep(1)
+    # Create water meter sensor 3
+    create_meter_3(client)
+    time.sleep(1)
 
 def on_disconnect(client, userdata, rc):
-   print("Client Got Disconnected With Result Code ", rc)
+    print("Client Got Disconnected With Result Code ", rc)
 
 def create_connection(db_file):
     """ create a database connection to the SQLite database
@@ -201,59 +263,6 @@ def main():
         client.connect(broker_address, 1883)
 
     client.loop_start()
-    time.sleep(1)
-
-    # Create MQTT sensors
-
-    # Create water meter sensor 1
-    mqttbuffer = "{\"name\":\"Garden water 1\",\
-      \"stat_t\":\"%s\",\
-      \"unique_id\":\"garden_water_1\",\
-      \"unit_of_meas\":\"L\",\
-      \"dev_cla\":\"water\",\
-      \"frc_upd\":true,\
-      \"val_tpl\":\"{{ value_json.water|default(0) }}\"}"\
-      % stateTopic1
-    if Debug > 0:
-        print(discoveryTopic1, ":", mqttbuffer)
-    if Debug != 2:
-        rc = client.publish(discoveryTopic1, mqttbuffer, qos = 0, retain = True)
-    if Debug > 2:
-        print (rc)
-    time.sleep(1)
-
-    # Create water meter sensor 2
-    mqttbuffer = "{\"name\":\"Garden water 2\",\
-      \"stat_t\":\"%s\",\
-      \"unique_id\":\"garden_water_2\",\
-      \"unit_of_meas\":\"L\",\
-      \"dev_cla\":\"water\",\
-      \"frc_upd\":true,\
-      \"val_tpl\":\"{{ value_json.water|default(0) }}\"}"\
-      % stateTopic2
-    if Debug > 0: 
-        print(discoveryTopic2, ":", mqttbuffer)
-    if Debug != 2: 
-        rc = client.publish(discoveryTopic2, mqttbuffer, qos = 0, retain = True)
-    if Debug > 2:
-        print (rc)
-    time.sleep(1)
-
-    # Create water meter sensor 3
-    mqttbuffer = "{\"name\":\"Garden water 3\",\
-      \"stat_t\":\"%s\",\
-      \"unique_id\":\"garden_water_3\",\
-      \"unit_of_meas\":\"L\",\
-      \"dev_cla\":\"water\",\
-      \"frc_upd\":true,\
-      \"val_tpl\":\"{{ value_json.water|default(0) }}\"}"\
-      % stateTopic3
-    if Debug > 0:
-        print(discoveryTopic3, ":", mqttbuffer)
-    if Debug != 2:
-        rc = client.publish(discoveryTopic3, mqttbuffer, qos = 0, retain = True)
-    if Debug > 2:
-        print (rc)
     time.sleep(1)
 
     while True:

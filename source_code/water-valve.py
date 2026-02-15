@@ -16,24 +16,136 @@ import json
 
 # Debug flag for printing, 0: false, 1: true,
 # 2: print but do not publish, 3: print more verbose
-Debug = 3
+Debug = 0
 
 # Configuration for MQTT broker
 broker_address = "192.168.42.59"
 mqttUser = "mqtt_user"
 mqttPassword = "use_mqtt"
 
-# GPIO pin numbers
+# GPIO pin numbers for valve control
 ctrlpin1 = 23 # Valve 1
 ctrlpin2 = 24 # Valve 2
 ctrlpin3 = 25 # Valve 3
 
+# Create water valve switch 1
+def create_valve_switch_1(client):
+    config_topic_1 = "homeassistant/switch/garden_water_1_switch/config"
+    payload1 = {"unique_id": "garden_water_switch_1",
+        "name": "Garden Water Switch 1",
+        "state_topic": "home/garden/garden_water_1_switch",
+        "command_topic": "home/garden/garden_water_1_switch/set",
+        "availability_topic":"home/garden/garden_water_1_switch/available",
+        "payload_on": "ON1",
+        "payload_off": "OFF1",
+        "state_on": "ON1",
+        "state_off": "OFF1",
+        "optimistic": False,
+        "qos": 0,
+        "retain": True
+     }
+    payload1 = json.dumps(payload1) #convert to JSON
+    if Debug > 0:
+        print(config_topic_1, ":", payload1)
+    if Debug != 2:
+        rc = client.publish(config_topic_1, payload1, qos = 0, retain = True)
+    if Debug > 2:
+        print(rc)
+
+# Create water valve switch 2
+def create_valve_switch_2(client):
+    config_topic_2 = "homeassistant/switch/garden_water_2_switch/config"
+    payload2 = {"unique_id": "garden_water_switch_2",
+        "name": "Garden Water Switch 2",
+        "state_topic": "home/garden/garden_water_2_switch",
+        "command_topic": "home/garden/garden_water_2_switch/set",
+        "availability_topic":"home/garden/garden_water_2_switch/available",
+        "payload_on": "ON2",
+        "payload_off": "OFF2",
+        "state_on": "ON2",
+        "state_off": "OFF2",
+        "optimistic": False,
+        "qos": 0,
+        "retain": True
+     }
+    payload2 = json.dumps(payload2) #convert to JSON
+    if Debug > 0:
+        print(config_topic_2, ":", payload2)
+    if Debug != 2:
+        rc = client.publish(config_topic_2, payload2, qos = 0, retain = True)
+    if Debug > 2:
+        print(rc)
+
+# Create water valve switch 3
+def create_valve_switch_3(client):
+    config_topic_3 = "homeassistant/switch/garden_water_3_switch/config"
+    payload3 = {"unique_id": "garden_water_switch_3",
+        "name": "Garden Water Switch 3",
+        "state_topic": "home/garden/garden_water_3_switch",
+        "command_topic": "home/garden/garden_water_3_switch/set",
+        "availability_topic":"home/garden/garden_water_3_switch/available",
+        "payload_on": "ON3",
+        "payload_off": "OFF3",
+        "state_on": "ON3",
+        "state_off": "OFF3",
+        "optimistic": False,
+        "qos": 0,
+        "retain": True
+     }
+    payload3 = json.dumps(payload3) #convert to JSON
+    if Debug > 0:
+        print(config_topic_3, ":", payload3)
+    if Debug != 2:
+        rc = client.publish(config_topic_3, payload3, qos = 0, retain = True)
+    if Debug > 2:
+        print(rc)
+
 # MQTT Connect / Disconnect
 def on_connect(client, userdata, flags, rc, properties):
-   print("Connected With Result Code ", rc)
+    print("Connected With Result Code ", rc)
+    # Create MQTT water valve switches
+
+    # Create water valve switch 1
+    create_valve_switch_1(client)
+    time.sleep(1)
+    # Send online message valve switch 1
+    online_topic_1 = "home/garden/garden_water_1_switch/available"
+    online_data_1 = "online"
+    if Debug > 0:
+        print(online_topic_1, ":", online_data_1)
+    if Debug != 2:
+        rc = client.publish(online_topic_1, online_data_1)
+    if Debug > 2:
+        print(rc)
+
+    # Create water valve switch 2
+    create_valve_switch_2(client)
+    time.sleep(1)
+    # Send online message valve switch 2
+    online_topic_2 = "home/garden/garden_water_2_switch/available"
+    online_data_2 = "online"
+    if Debug > 0:
+        print(online_topic_2, ":", online_data_2)
+    if Debug != 2:
+        rc = client.publish(online_topic_2, online_data_2)
+    if Debug > 2:
+        print(rc)
+
+    # Create water valve switch 3
+    create_valve_switch_3(client)
+    time.sleep(1)
+    # Send online message  valve switch 3
+    online_topic_3 = "home/garden/garden_water_3_switch/available"
+    online_data_3 = "online"
+    if Debug > 0:
+        print(online_topic_3, ":", online_data_3)
+    if Debug != 2:
+        rc = client.publish(online_topic_3, online_data_3)
+    if Debug > 2:
+        print(rc)
 
 def on_disconnect(client, userdata, rc):
-   print("Client Got Disconnected With Result Code ", rc)
+    print("Client Got Disconnected With Result Code ", rc)
 
 # MQTT subscribe handler
 def on_message(client, userdata, message):
@@ -135,107 +247,6 @@ def main():
 
     client.loop_start()
     time.sleep(1)
-
-    # Create MQTT water valve switches
-
-    # Create water valve switch 1
-    config_topic_1 = "homeassistant/switch/garden_water_1_switch/config"
-    payload1 = {"unique_id": "garden_water_switch_1",
-        "name": "Garden Water Switch 1",
-        "state_topic": "home/garden/garden_water_1_switch",
-        "command_topic": "home/garden/garden_water_1_switch/set",
-        "availability_topic":"home/garden/garden_water_1_switch/available",
-        "payload_on": "ON1",
-        "payload_off": "OFF1",
-        "state_on": "ON1",
-        "state_off": "OFF1",
-        "optimistic": False,
-        "qos": 0,
-        "retain": True
-     }
-    payload1 = json.dumps(payload1) #convert to JSON
-    if Debug > 0:
-        print(config_topic_1, ":", payload1)
-    if Debug != 2:
-        rc = client.publish(config_topic_1, payload1, qos = 0, retain = True)
-    if Debug > 2:
-        print(rc)
-    time.sleep(1)
-    # Send online message
-    online_topic_1 = "home/garden/garden_water_1_switch/available"
-    online_data_1 = "online"
-    if Debug > 0:
-        print(online_topic_1, ":", online_data_1)
-    if Debug != 2:
-        rc = client.publish(online_topic_1, online_data_1)
-    if Debug > 2:
-        print(rc)
-
-    # Create water valve switch 2
-    config_topic_2 = "homeassistant/switch/garden_water_2_switch/config"
-    payload2 = {"unique_id": "garden_water_switch_2",
-        "name": "Garden Water Switch 2",
-        "state_topic": "home/garden/garden_water_2_switch",
-        "command_topic": "home/garden/garden_water_2_switch/set",
-        "availability_topic":"home/garden/garden_water_2_switch/available",
-        "payload_on": "ON2",
-        "payload_off": "OFF2",
-        "state_on": "ON2",
-        "state_off": "OFF2",
-        "optimistic": False,
-        "qos": 0,
-        "retain": True
-     }
-    payload2 = json.dumps(payload2) #convert to JSON
-    if Debug > 0:
-        print(config_topic_2, ":", payload2)
-    if Debug != 2:
-        rc = client.publish(config_topic_2, payload2, qos = 0, retain = True)
-    if Debug > 2:
-        print(rc)
-    time.sleep(1)
-    # Send online message
-    online_topic_2 = "home/garden/garden_water_2_switch/available"
-    online_data_2 = "online"
-    if Debug > 0:
-        print(online_topic_2, ":", online_data_2)
-    if Debug != 2:
-        rc = client.publish(online_topic_2, online_data_2)
-    if Debug > 2:
-        print(rc)
-
-    # Create water valve switch 3
-    config_topic_3 = "homeassistant/switch/garden_water_3_switch/config"
-    payload3 = {"unique_id": "garden_water_switch_3",
-        "name": "Garden Water Switch 3",
-        "state_topic": "home/garden/garden_water_3_switch",
-        "command_topic": "home/garden/garden_water_3_switch/set",
-        "availability_topic":"home/garden/garden_water_3_switch/available",
-        "payload_on": "ON3",
-        "payload_off": "OFF3",
-        "state_on": "ON3",
-        "state_off": "OFF3",
-        "optimistic": False,
-        "qos": 0,
-        "retain": True
-     }
-    payload3 = json.dumps(payload3) #convert to JSON
-    if Debug > 0:
-        print(config_topic_3, ":", payload3)
-    if Debug != 2:
-        rc = client.publish(config_topic_3, payload3, qos = 0, retain = True)
-    if Debug > 2:
-        print(rc)
-    time.sleep(1)
-    # Send online message
-    online_topic_3 = "home/garden/garden_water_3_switch/available"
-    online_data_3 = "online"
-    if Debug > 0:
-        print(online_topic_3, ":", online_data_3)
-    if Debug != 2:
-        rc = client.publish(online_topic_3, online_data_3)
-    if Debug > 2:
-        print(rc)
 
     online_loop = 0
     publish_states = False
