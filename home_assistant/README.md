@@ -15,6 +15,6 @@ will detect a leak and turn off the water.
 
 The CubicSecure integration with Home Assistant is required for this.
 * [angoyd/ha-lksystems: Home Assistent component for LK Systems devices.](https://github.com/angoyd/ha-lksystems#readme)
-* [Water Safety Unit](https://www.lksystems.se/en/products/lk-water-safety-system/water-safety-unit/)
+* [LK Systems Water Safety Unit](https://www.lksystems.se/en/products/lk-water-safety-system/water-safety-unit/)
 
 Sorry for the "swinglish" in these automations.
