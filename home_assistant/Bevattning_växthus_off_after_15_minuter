@@ -1,0 +1,22 @@
+alias: Bevattning växthus off after 15 minuter
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - switch.garden_water_switch_3
+    from:
+      - "off"
+    to:
+      - "on"
+    for:
+      hours: 0
+      minutes: 15
+      seconds: 0
+conditions: []
+actions:
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id: switch.garden_water_switch_3
+    data: {}
+mode: single
