@@ -1,0 +1,32 @@
+alias: Bevattning_off_cubicsecure_pause_off
+description: When bevattning is stopped CubicSecure supervision is resumed
+triggers:
+  - entity_id: switch.garden_water_switch_2
+    to: "off"
+    trigger: state
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - entity_id: switch.garden_water_switch_3
+    to: "off"
+    trigger: state
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+conditions:
+  - condition: state
+    entity_id: switch.garden_water_switch_2
+    state:
+      - "off"
+  - condition: state
+    entity_id: switch.garden_water_switch_3
+    state:
+      - "off"
+actions:
+  - action: lksystems.pause_leak_detection
+    data:
+      device_id: 0e8a36242ba12d2381fbb216a660884d
+      seconds: 0
+mode: single
