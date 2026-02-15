@@ -1,0 +1,23 @@
+alias: Bevattning_on_cubicsecure_pause_on
+description: When bevattning is started CubicSecure is paused for 30 minutes
+triggers:
+  - entity_id: switch.garden_water_switch_2
+    to: "on"
+    trigger: state
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - entity_id: switch.garden_water_switch_3
+    to: "on"
+    trigger: state
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+actions:
+  - action: lksystems.pause_leak_detection
+    data:
+      device_id: 0e8a36242ba12d2381fbb216a660884d
+      seconds: 1800
+mode: single
