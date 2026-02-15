@@ -1,0 +1,22 @@
+alias: Bevattning dimkylning växthus off after 60 minuter
+description: ""
+triggers:
+  - trigger: state
+    entity_id:
+      - switch.garden_water_switch_1
+    from:
+      - "off"
+    to:
+      - "on"
+    for:
+      hours: 1
+      minutes: 0
+      seconds: 0
+conditions: []
+actions:
+  - action: switch.turn_off
+    metadata: {}
+    target:
+      entity_id: switch.garden_water_switch_1
+    data: {}
+mode: single
