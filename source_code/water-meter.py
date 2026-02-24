@@ -19,7 +19,7 @@ import paho.mqtt.client as mqtt
 # Debug flag for printing, 0: false, 1: true,
 # 2: print but do not publish, 3: print in detail
 # 4: print for each pulse on a pin
-Debug = 3
+Debug = 0
 
 # Configuration for MQTT broker
 broker_address = "192.168.42.59"
@@ -109,7 +109,7 @@ def on_connect(client, userdata, flags, rc, properties):
     create_meter_3(client)
     time.sleep(1)
 
-def on_disconnect(client, userdata, rc):
+def on_disconnect(client, userdata, flags, rc, properties):
     print("Client Got Disconnected With Result Code ", rc)
 
 def create_connection(db_file):

@@ -144,7 +144,7 @@ def on_connect(client, userdata, flags, rc, properties):
     if Debug > 2:
         print(rc)
 
-def on_disconnect(client, userdata, rc):
+def on_disconnect(client, userdata, flags, rc, properties):
     print("Client Got Disconnected With Result Code ", rc)
 
 # MQTT subscribe handler
