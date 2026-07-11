@@ -155,70 +155,16 @@ def on_message(client, userdata, message):
     match message.payload.decode():
         case "ON1":
             GPIO.output(ctrlpin1, GPIO.HIGH)
-            # Publish state for valve switch 1
-            state_topic_1 = "home/garden/garden_water_1_switch"
-            state_data_1 = "ON1"
-            if Debug > 0:
-                print(state_topic_1, ":", state_data_1)
-            if Debug != 2:
-                rc = client.publish(state_topic_1, state_data_1)
-            if Debug > 2:
-                print(rc)
         case "ON2":
             GPIO.output(ctrlpin2, GPIO.HIGH)
-            # Publish state for valve switch 2
-            state_topic_2 = "home/garden/garden_water_2_switch"
-            state_data_2 = "ON2"
-            if Debug > 0:
-                print(state_topic_2, ":", state_data_2)
-            if Debug != 2:
-                rc = client.publish(state_topic_2, state_data_2)
-            if Debug > 2:
-                print(rc)
         case "ON3":
             GPIO.output(ctrlpin3, GPIO.HIGH)
-            # Publish state for valve switch 3
-            state_topic_3 = "home/garden/garden_water_3_switch"
-            state_data_3 = "ON3"
-            if Debug > 0:
-                print(state_topic_3, ":", state_data_3)
-            if Debug != 2:
-                rc = client.publish(state_topic_3, state_data_3)
-            if Debug > 2:
-                print(rc)
         case "OFF1":
             GPIO.output(ctrlpin1, GPIO.LOW)
-            # Publish state for valve switch 1
-            state_topic_1 = "home/garden/garden_water_1_switch"
-            state_data_1 = "OFF1"
-            if Debug > 0:
-                print(state_topic_1, ":", state_data_1)
-            if Debug != 2:
-                rc = client.publish(state_topic_1, state_data_1)
-            if Debug > 2:
-                print(rc)
         case "OFF2":
             GPIO.output(ctrlpin2, GPIO.LOW)
-            # Publish state for valve switch 2
-            state_topic_2 = "home/garden/garden_water_2_switch"
-            state_data_2 = "OFF2"
-            if Debug > 0:
-                print(state_topic_2, ":", state_data_2)
-            if Debug != 2:
-                rc = client.publish(state_topic_2, state_data_2)
-            if Debug > 2:
-                print(rc)
         case "OFF3":
             GPIO.output(ctrlpin3, GPIO.LOW)
-            # Publish state for valve switch 3
-            state_topic_3 = "home/garden/garden_water_3_switch"
-            state_data_3 = "OFF3"
-            if Debug > 0:
-                print(state_topic_3, ":", state_data_3)
-            if Debug != 2:
-                rc = client.publish(state_topic_3, state_data_3)
-            if Debug > 2:
-                print(rc)
 
 # Main routine creating  MQTT devices and listening for SQL commands
 def main():
@@ -253,7 +199,7 @@ def main():
     while True:
         # Send online messages but not too often
         online_loop += 1
-        if online_loop > 10:
+        if online_loop > 30:
             online_loop = 0
             online_topic_1 = "home/garden/garden_water_1_switch/available"
             online_data_1 = "online"
@@ -283,6 +229,7 @@ def main():
                 print(rc)
             time.sleep(1)
 
+            # Force publish of valve state when online messages sent
             publish_states = True
 
         # Listen for GPIO pin changing state for valve 1
